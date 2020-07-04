@@ -22,6 +22,8 @@
                             </div>
                             <br>
                         </div>
+                        <input name="title" class="form-control" type="text" placeholder="Title">
+                        <input id="tags" name="tags" class="form-control" type="text" placeholder="Write tags separated by commas like 'lol,mdr,cul'">
                         <div class="form-group">
                             <img id="preview" class="img-fluid" src="#" alt="">
                         </div>

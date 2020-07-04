@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Image;
+use App\Tag;
+use App\ImageTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
@@ -16,9 +18,11 @@ class ImageController extends Controller
      */
     public function index(Request $request)
     {
+        $images = Image::all();
 
-
-        return view('image.index');
+        return view('image.index', [
+            'images' => $images
+        ]);
     }
 
     /**
@@ -52,11 +56,31 @@ class ImageController extends Controller
         $image = new Image;
         $image->user_id = "1";
         $image->description = "";
-        $image->title = "Titre";
+        $image->title = $request->title;
         $image->filename = $path;
 
         //save images with categories in another method
         $image->save();
+
+        $tags = explode(',',$request->tags);
+
+        foreach ($tags as $t) {
+
+            $tag = Tag::where('name', $t)->first();
+            if (empty($tag)) {
+                $tag = new Tag;
+
+                $tag->name = $t;
+                $tag->save();
+            }
+
+            $image_tag = new ImageTag;
+
+            $image_tag->image_id = $image->id;
+            $image_tag->tag_id = $tag->id;
+
+            $image_tag->save();
+        }
 
         return redirect()->route('image.index');
     }

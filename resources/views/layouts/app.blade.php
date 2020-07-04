@@ -30,6 +30,18 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+              
+                <form class="form-inline my-2 my-lg-0" action="/search" method="POST" role="search">
+                    {{ csrf_field() }}
+                    <div class="input-group">
+                        <input class="form-control mr-sm-2" type="text" class="form-control" name="q"
+                            placeholder="Search users"> <span class="input-group-btn">
+                            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
+                                <span class="glyphicon glyphicon-search">Search</span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
