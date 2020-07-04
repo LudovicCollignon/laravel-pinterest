@@ -62,6 +62,16 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - [OP.GG](https://op.gg)
 - [云软科技](http://www.yunruan.ltd/)
 
+## Create Migrations
+
+Create Model
+```php artisan make:model Board```
+
+Create Migration
+```php artisan make:migration create_boards_table```
+
+In the new file created, add the column you want in create()
+
 ## Run migrations
 
 Before starting your work, make sure all migrations have been runned.
