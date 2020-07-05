@@ -23,9 +23,8 @@ Route::get('/', "ImageController@index", function () {
 
 
 Route::middleware ('auth')->group (function () {
-    Route::resource ('image', 'ImageController', [
-        'only' => ['index', 'create', 'store', 'destroy', 'update']
-    ]);
+    Route::resource ('image', 'ImageController');
+    Route::resource ('board', 'BoardController');
 });
 
 Auth::routes();
