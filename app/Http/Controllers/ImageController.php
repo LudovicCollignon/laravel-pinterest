@@ -50,7 +50,8 @@ class ImageController extends Controller
         $path = basename($image->store('/public/images'));
 
         // save thumbs in storage/app/public/thumbs/ with sameName
-        $image = InterventionImage::make($request->image)->widen(300)->encode();
+        $screen_width = $_COOKIE['screenWidth'];
+        $image = InterventionImage::make($request->image)->widen($screen_width / 5)->encode();
         Storage::put('/public/thumbs/' . $path, $image);
 
         $image = new Image;
