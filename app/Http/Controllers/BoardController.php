@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Board;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BoardController extends Controller
 {
@@ -27,6 +29,25 @@ class BoardController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $board = new Board;
+
+        $board->name = $request->boardName;
+        $board->description = $request->boardDescription;
+        $board->user_id = Auth::id();
+
+        $board->save();
+
+        return redirect()->route('board.show', [$board]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -34,7 +55,9 @@ class BoardController extends Controller
      */
     public function show($id)
     {
-        //
+        $board = Board::find($id);
+
+        return view('board.show', ['board' => $board]);
     }
 
     /**
@@ -69,5 +92,19 @@ class BoardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Add the specified image to the specified board.
+     *
+     * @param  Model  $image
+     * @param  Model  $board
+     * @return \Illuminate\Http\Response
+     */
+    public function addImage($image, $board)
+    {
+        $board->images()->attach($image->id());
+
+        // return;
     }
 }

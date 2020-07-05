@@ -32,15 +32,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::any('/search', function () {
-    $q = Request::get('q');
-    $tags = Tag::where('name', 'LIKE', '%' . $q . '%')->get('id')->toArray();
-    $images_tags = Imagetag::whereIn('tag_id', $tags)->get('image_id')->toArray();
-    $images = Image::whereIn('id', $images_tags)->get();
-
-    if (count($images) > 0)
-        return view('image.index', [
-            'images' => $images
-        ]);
-    else return view('image.index', ['images' => []]);
-})->name('search-tag');
+Route::any('/search', 'SearchController@getSearch')->name('search-tag');
