@@ -20,6 +20,6 @@ class SearchController extends Controller
             return view('image.index', [
                 'images' => $images
             ]);
-        else return view ('image.index', ['images' => []]);
+        else return redirect()->route('image.index');
     }
 }

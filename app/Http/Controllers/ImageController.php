@@ -46,12 +46,13 @@ class ImageController extends Controller
         // get file by input name => "image"
         $image = $request->image;
 
-        // save image in storage/app/images/ with random filename
-        $path = basename($image->store('images'));
+        // save image in storage/app/public/images/ with random filename
+        $path = basename($image->store('/public/images'));
 
-        // save thumbs in storage/app/thumbs/ with sameName
-        $image = InterventionImage::make($request->image)->widen(500)->encode();
-        Storage::put('thumbs/' . $path, $image);
+        // save thumbs in storage/app/public/thumbs/ with sameName
+        $screen_width = $_COOKIE['screenWidth'];
+        $image = InterventionImage::make($request->image)->widen($screen_width / 5)->encode();
+        Storage::put('/public/thumbs/' . $path, $image);
 
         $image = new Image;
         $image->user_id = "1";
@@ -83,6 +84,12 @@ class ImageController extends Controller
         }
 
         return redirect()->route('image.index');
+    }
+
+    public function download($imageId){
+        $image = Image::where('id', $imageId)->firstOrFail();
+        $path = public_path(). '/storage/images/'. $image->filename;
+        return response()->download($path, $image->title, ['Content-Type' => $image->mime]);
     }
 
     /**

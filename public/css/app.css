@@ -1,0 +1,23 @@
+body {
+    padding-top: 60px;
+}
+.image-container {
+    position: relative;
+}
+.image-button {
+    display: none;
+    position: absolute;
+    top: 10%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+img:hover + .image-button, .image-button:hover {
+    display: inline-block;
+} 
