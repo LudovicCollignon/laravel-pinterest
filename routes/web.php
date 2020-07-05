@@ -5,6 +5,7 @@ use App\Image;
 use App\ImageTag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,24 +23,24 @@ Route::get('/', "ImageController@index", function () {
 });
 
 
-Route::middleware ('auth')->group (function () {
-    Route::resource ('image', 'ImageController');
-    Route::resource ('board', 'BoardController');
+Route::middleware('auth')->group(function () {
+    Route::resource('image', 'ImageController');
+    Route::resource('board', 'BoardController');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::any('/search',function(){
-    $q = Request::get( 'q' );
-    $tags = Tag::where('name', 'LIKE', '%'.$q.'%')->get('id')->toArray();
+Route::any('/search', function () {
+    $q = Request::get('q');
+    $tags = Tag::where('name', 'LIKE', '%' . $q . '%')->get('id')->toArray();
     $images_tags = Imagetag::whereIn('tag_id', $tags)->get('image_id')->toArray();
     $images = Image::whereIn('id', $images_tags)->get();
 
-    if(count($images) > 0)
+    if (count($images) > 0)
         return view('image.index', [
             'images' => $images
         ]);
-    else return view ('image.index', ['images' => []]);
-});
+    else return view('image.index', ['images' => []]);
+})->name('search-tag');
