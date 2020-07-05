@@ -26,6 +26,9 @@ Route::get('/', "ImageController@index", function () {
 Route::middleware('auth')->group(function () {
     Route::resource('image', 'ImageController');
     Route::resource('board', 'BoardController');
+    Route::get('image/save/{id}',[
+        'as' => 'image.download', 'uses' => 'ImageController@download']
+    );
 });
 
 Auth::routes();
@@ -33,3 +36,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::any('/search', 'SearchController@getSearch')->name('search-tag');
+

@@ -86,6 +86,12 @@ class ImageController extends Controller
         return redirect()->route('image.index');
     }
 
+    public function download($imageId){
+        $image = Image::where('id', $imageId)->firstOrFail();
+        $path = public_path(). '/storage/images/'. $image->filename;
+        return response()->download($path, $image->title, ['Content-Type' => $image->mime]);
+    }
+
     /**
      * Display the specified resource.
      *
