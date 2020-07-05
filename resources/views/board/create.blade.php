@@ -22,36 +22,16 @@
                             </div>
                             <br>
                         </div>
-                        <input name="title" class="form-control" type="text" placeholder="Title">
-                        <input id="tags" name="tags" class="form-control" type="text" placeholder="Write tags separated by commas like 'lol,mdr,cul'">
                         <div class="form-group">
                             <img id="preview" class="img-fluid" src="#" alt="">
                         </div>
                         <a class="btn btn-light" href="{{ route('home') }}">Back</a>
                         <a class="btn btn-light" href="{{ route('image.index') }}">Images</a>
-                        <input type="submit" class="btn btn-dark"/>
+                        <input type="submit" class="btn btn-dark" />
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-    $(() => {
-        $('#input-upload-image').on('change', (e) => {
-            let that = e.currentTarget
-            if (that.files && that.files[0]) {
-                $(that).next('.custom-file-label').html(that.files[0].name)
-                let reader = new FileReader()
-                reader.onload = (e) => {
-                    $('#preview').attr('src', e.target.result)
-                }
-                reader.readAsDataURL(that.files[0])
-            }
-        })
-    })
-</script>
 @endsection

@@ -1,4 +1,6 @@
 
+
+// controller pour ressources (créer 7 méthodes : create, update, store, show, destroy...)
 php artisan make:controller ImageController --resource
 
 // Ajouter l'authentication à l'appli
@@ -27,6 +29,9 @@ php artisan migrate:refresh --seed
 
 // TODO
 
+
+cast date image
+
 migrations
 
 System de cache (cf. https://laravel.com/docs/7.x/filesystem "Caching")
@@ -46,6 +51,7 @@ Gestion des langues pour les libellés
 
 Nombres de clics => popularité
 
+tag pour les boards
 
 Abonnements
 
