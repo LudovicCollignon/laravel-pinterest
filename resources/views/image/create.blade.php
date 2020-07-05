@@ -10,31 +10,54 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('image.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
-                            <div class="custom-file">
-                                <input type="file" id="input-upload-image" name="image" class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
-                                <label class="custom-file-label" for="image"></label>
-                                @if ($errors->has('image'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('image') }}
-                                </div>
-                                @endif
+
+                        <div class="col">
+                            @if ($errors->has('image'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('image') }}
                             </div>
-                            <br>
+                            @endif
                         </div>
-                        <input name="title" class="form-control" type="text" placeholder="Title">
-                        <input id="tags" name="tags" class="form-control" type="text" placeholder="Write tags separated by commas like 'lol,mdr,cul'">
+                        <div class="form-group mb-0">
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="custom-file">
+                                        <input type="file" id="input-upload-image" name="image" class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
+                                        <label class="custom-file-label" for="image"></label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <select id="inputState" class="form-control">
+                                        <option value="" selected>Boards...</option>
+                                        <option>Board1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
-                            <img id="preview" class="img-fluid" src="#" alt="">
+                            <img id="preview" class="img-fluid rounded mx-auto d-block" src="#" alt="">
                         </div>
-                        <a class="btn btn-light" href="{{ route('home') }}">Back</a>
-                        <a class="btn btn-light" href="{{ route('image.index') }}">Images</a>
-                        <input type="submit" class="btn btn-dark"/>
-                    </form>
+
+                        <div class="form-group">
+                            <input name="title" class="form-control" type="text" placeholder="Title">
+                        </div>
+
+                        <div class="form-group">
+                            <input data-role="tagsinput" id="tags" name="tags" class="form-control" type="text" placeholder="Tags">
+                            <small class="form-text text-muted">Write tags separated by commas like 'lol,mdr,cul'</small>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-between my-0">
+                            <a class="btn btn-light" href="{{ route('home') }}">Annuler</a>
+                            <input type="submit" class="btn btn-dark" />
+                        </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
 
