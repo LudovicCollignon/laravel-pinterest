@@ -27,8 +27,6 @@ class RenameImagesTagsToImageTags extends Migration
      */
     public function down()
     {
-        Schema::table('image_tags', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('image_tags');
     }
 }
