@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="form-group d-flex justify-content-between my-0">
-                            <a class="btn btn-light" href="{{ route('home') }}">Annuler</a>
+                            <a class="btn btn-light" href="{{ route('home') }}">Back</a>
                             <input type="submit" class="btn btn-dark" />
                         </div>
                 </div>
