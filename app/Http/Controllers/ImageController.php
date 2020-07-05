@@ -46,12 +46,12 @@ class ImageController extends Controller
         // get file by input name => "image"
         $image = $request->image;
 
-        // save image in storage/app/images/ with random filename
-        $path = basename($image->store('images'));
+        // save image in storage/app/public/images/ with random filename
+        $path = basename($image->store('/public/images'));
 
-        // save thumbs in storage/app/thumbs/ with sameName
+        // save thumbs in storage/app/public/thumbs/ with sameName
         $image = InterventionImage::make($request->image)->widen(500)->encode();
-        Storage::put('thumbs/' . $path, $image);
+        Storage::put('/public/thumbs/' . $path, $image);
 
         $image = new Image;
         $image->user_id = "1";
