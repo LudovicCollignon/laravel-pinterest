@@ -1,6 +1,11 @@
 <?php
 
+use App\Tag;
+use App\Image;
+use App\ImageTag;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', "ImageController@index", function () {
+    return view('image.index');
+})->name('home');
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('image', 'ImageController');
+    Route::resource('board', 'BoardController');
+    Route::post('save-image', 'BoardController@addImage')->name('image.save');
+    Route::get('image/save/{id}', [
+        'as' => 'image.download',
+        'uses' => 'ImageController@download'
+    ]);
 });
+
+Auth::routes();
+
+Route::any('/search', 'SearchController@getSearch')->name('search-tag');

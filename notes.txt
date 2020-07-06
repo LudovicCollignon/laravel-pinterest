@@ -1,0 +1,55 @@
+
+
+// controller pour ressources (créer 7 méthodes : create, update, store, show, destroy...)
+php artisan make:controller ImageController --resource
+
+// Ajouter l'authentication à l'appli
+composer require laravel/ui
+php artisan ui vue --auth
+
+// créer un lien symbolique from public/storage to /storage/app/public
+php artisan storage:link
+The [/Applications/MAMP/htdocs/laravel-pinterest/public/storage] link has been connected to [/Applications/MAMP/htdocs/laravel-pinterest/storage/app/public].
+The links have been created.
+
+// pour accéder à un file 
+echo asset('storage/file.txt');
+
+// Pour installer le package Intervention Image as a Facade
+composer require intervention/image
+
+
+// générer migrations en refreshant toute les données et en exécutant les seeders
+php artisan migrate:refresh --seed
+
+
+
+
+
+
+// TODO
+
+erreurs formulaires
+
+cast date image
+
+System de cache (cf. https://laravel.com/docs/7.x/filesystem "Caching")
+
+Gestion des langues pour les libellés
+
+Abonnements
+
+mails pour envoyer les nouveautés en rapport avec les tgs
+
+
+
+
+
+// docs
+
+// download filesystem
+https://laravel.com/docs/7.x/filesystem#downloading-files
+
+
+// reécuperer les files depuis le form
+https://laravel.com/docs/7.x/requests#files

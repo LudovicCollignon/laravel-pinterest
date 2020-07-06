@@ -20,20 +20,18 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * Get the boards for the user.
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function boards()
+    {
+        return $this->hasMany('App\Board');
+    }
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * Get the boards for the user.
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function images()
+    {
+        return $this->hasMany('App\Image');
+    }
 }
