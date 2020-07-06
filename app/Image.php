@@ -32,6 +32,14 @@ class Image extends Model
     }
 
     /**
+     * The users who possess the image.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Image');
+    }
+
+    /**
      * The tags that belong to the image.
      */
     public function tags()
