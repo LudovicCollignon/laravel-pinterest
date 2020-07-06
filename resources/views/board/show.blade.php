@@ -12,7 +12,9 @@
                         @if (isset($images) && $images->isNotEmpty())
                         @foreach ($images as $image)
                         <div class="image-container">
-                            <img class="rounded m-1 image" src="<?php echo asset("storage/thumbs/$image->filename") ?>"></img>
+                            <a href="{{ route('image.show', $image->id) }}" class="image">
+                                <img class="rounded m-1" src="<?php echo asset("storage/thumbs/$image->filename") ?>"></img>
+                            </a>
                         </div>
                         @endforeach
                         @else
