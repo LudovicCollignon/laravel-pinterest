@@ -76,15 +76,24 @@
                 </form>
 
                 <ul class="navbar-nav ml-auto nav-flex-icons">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i>{{ Auth::user()->name }}</a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                          <a class="dropdown-item" href="#">My account</a>
-                          <a class="dropdown-item" href="#">Log out</a>
-                        </div>
-                      </li>
+                    @if (!empty(Auth::user()))
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>{{ Auth::user()->name }}</a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                            <a class="dropdown-item" href="#">My account</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}">Log out</a>
+                            </div>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                    @endif
                   </ul>
             </div>
 

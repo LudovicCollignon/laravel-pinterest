@@ -23,12 +23,20 @@ class ImageController extends Controller
     public function index(Request $request)
     {
         $images = Image::all();
-        $boards = User::find(Auth::id())->boards;
+        if (Auth::check()) {
+            $boards = User::find(Auth::id())->boards;
 
-        return view('image.index', [
-            'images' => $images,
-            'boards' => $boards
-        ]);
+            return view('image.index', [
+                'images' => $images,
+                'boards' => $boards
+            ]);
+        } else {
+            return view('image.index', [
+                'images' => $images
+            ]);
+        }
+
+        
     }
 
     /**
