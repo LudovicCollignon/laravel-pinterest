@@ -14,4 +14,28 @@ class Image extends Model
     protected $fillable = [
         'user_id', 'title', 'description', 'filename',
     ];
+
+    /**
+     * The boards that belong to the image.
+     */
+    public function boards()
+    {
+        return $this->belongsToMany('App\Board');
+    }
+
+    /**
+     * Get the user that owns the image.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Image');
+    }
+
+    /**
+     * The tags that belong to the image.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
 }

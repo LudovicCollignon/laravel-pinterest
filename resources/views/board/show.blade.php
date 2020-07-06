@@ -3,26 +3,25 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">{{ $board->name }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('board.store') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <input name="boardName" class="form-control" type="text" placeholder="Name">
+                    <div class="d-flex justify-content-center flex-wrap align-items-start">
+                        @if (isset($images) && $images->isNotEmpty())
+                        @foreach ($images as $image)
+                        <div class="image-container">
+                            <img class="rounded m-1 image" src="<?php echo asset("storage/thumbs/$image->filename") ?>"></img>
                         </div>
-
-                        <div class="form-group">
-                            <textarea class="form-control" name="boardDescription" rows="5" placeholder="Description"></textarea>
+                        @endforeach
+                        @else
+                        <div class="d-flex flex-column justify-content-between flex-wrap align-items-center">
+                            <div class="">Your board is empty, add some image.</div>
+                            <a class="btn btn-dark mt-3" href="{{ route('home') }}">Save images</a>
                         </div>
-
-                        <div class="form-group d-flex justify-content-between my-0">
-                            <a class="btn btn-light" href="{{ route('home') }}">Cancel</a>
-                            <input type="submit" class="btn btn-dark" />
-                        </div>
-                    </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

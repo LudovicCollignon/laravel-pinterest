@@ -31,7 +31,6 @@
 
 <body>
     <div id="app">
-
         <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
 
             <a class="navbar-brand" href="#">
@@ -52,6 +51,15 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('board.index') }}">My boards</a>
                             <a class="dropdown-item" href="{{ route('board.create') }}">New board</a>
+                        </div <li class="nav-item">
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Images
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('image.index') }}">My images</a>
+                            <a class="dropdown-item" href="{{ route('image.create') }}">Add image</a>
                         </div <li class="nav-item">
                     </li>
                 </ul>

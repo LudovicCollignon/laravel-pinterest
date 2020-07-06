@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropImagesTagsTable extends Migration
+class DropBoardsImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class DropImagesTagsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('images_tags');
+        Schema::dropIfExists('boards_images');
     }
 
     /**
@@ -23,6 +23,6 @@ class DropImagesTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images_tags');
+        //
     }
 }
