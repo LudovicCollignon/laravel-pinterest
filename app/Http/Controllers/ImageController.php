@@ -8,8 +8,8 @@ use App\Image;
 use App\ImageTag;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
 
@@ -122,8 +122,19 @@ class ImageController extends Controller
     {
         $image = Image::find($id);
 
-        $tags = ImageTag::where('image_id', $image->id)->get('tag_id')->toArray();
-        $images = Image::whereIn('id', ImageTag::whereIn('tag_id', $tags)->get('image_id')->toArray())->where('id', '!=', $image->id)->get();
+        $tags = $image->tags()->get();
+
+        $images = [];
+
+        foreach ($tags as $tag) {
+            $images = array_merge($images, $tag->images()->where('image_id', '!=', $image->id)->get()->all());
+        }
+        
+        // $tags = ImageTag::where('image_id', $image->id)->get('tag_id')->toArray();
+
+        // foreach()
+
+        // $images = Image::whereIn('id', ImageTag::whereIn('tag_id', $tags)->get('image_id')->toArray())->where('id', '!=', $image->id)->get();
 
         $user = User::find($image->user_id);
 
