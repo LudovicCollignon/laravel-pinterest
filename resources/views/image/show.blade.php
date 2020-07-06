@@ -20,7 +20,7 @@
                                         <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
                                     </svg>
                                 </a>
-                                <a href="{{ route('image.create') }}" class="btn btn-danger btn-sm">Add</a>
+                                <a href="{{ route('image.create') }}" class="btn btn-danger btn-sm">Save</a>
                                 <a href="{{ route('image.create') }}" class="btn btn-secondary btn-sm">Follow</a>
                             </div>
                             <div class="mt-5 pt-5">
