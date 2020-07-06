@@ -29,32 +29,17 @@ php artisan migrate:refresh --seed
 
 // TODO
 
+erreurs formulaires
 
 cast date image
 
-migrations
-
 System de cache (cf. https://laravel.com/docs/7.x/filesystem "Caching")
-
-Extends UploadedFile
-
-Tableaux
-
-Enregistrer image dans un tableau 
-
-Télécharger l'image
-
-Recherches récentes
 
 Gestion des langues pour les libellés
 
-
-Nombres de clics => popularité
-
-tag pour les boards
-
 Abonnements
 
+mails pour envoyer les nouveautés en rapport avec les tgs
 
 
 
@@ -68,19 +53,3 @@ https://laravel.com/docs/7.x/filesystem#downloading-files
 
 // reécuperer les files depuis le form
 https://laravel.com/docs/7.x/requests#files
-
-
-
-
-
-
-
-
-
-
-
------------------------------------ image.index -----------------------------------
-
-Liste des 
-
-

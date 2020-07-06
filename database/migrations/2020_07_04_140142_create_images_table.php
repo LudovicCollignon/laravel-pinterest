@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateImagesTable extends Migration
 {
@@ -16,17 +17,13 @@ class CreateImagesTable extends Migration
         if(!Schema::hasTable('images')){
             Schema::create('images', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedInteger('user_id');
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
                 $table->string('title', 255);
                 $table->text('description')->nullable();
                 $table->string('filename', 255)->unique();
                 $table->timestamps();
             });
         }
-
-        // Schema::table('images', function (Blueprint $table) {
-        //     $table->foreignId('user_id')->constrained();
-        // });
     }
 
     /**

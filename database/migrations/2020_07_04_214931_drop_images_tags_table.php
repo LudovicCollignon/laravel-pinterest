@@ -23,6 +23,6 @@ class DropImagesTagsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('images_tags');
     }
 }

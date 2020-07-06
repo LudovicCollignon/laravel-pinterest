@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RenameImagesTagsToImageTags extends Migration
+class CreateBoardImageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class RenameImagesTagsToImageTags extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('image_tags')){
-            Schema::table('image_tags', function (Blueprint $table) {
-                Schema::rename('images_tags', 'image_tags');
-            });
-        }
+        Schema::create('board_image', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('board_id')->constrained();
+            $table->foreignId('image_id')->constrained();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -27,6 +28,6 @@ class RenameImagesTagsToImageTags extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('image_tags');
+        Schema::dropIfExists('board_image');
     }
 }

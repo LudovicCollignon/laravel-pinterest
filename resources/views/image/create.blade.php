@@ -6,30 +6,56 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Ton image</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('image.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
-                            <div class="custom-file">
-                                <input type="file" id="input-upload-image" name="image" class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
-                                <label class="custom-file-label" for="image"></label>
-                                @if ($errors->has('image'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('image') }}
-                                </div>
-                                @endif
-                            </div>
-                            <br>
+                        @if ($errors->has('image'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('image') }}
                         </div>
-                        <input name="title" class="form-control" type="text" placeholder="Title">
-                        <input id="tags" name="tags" class="form-control" type="text" placeholder="Write tags separated by commas like 'lol,mdr,cul'">
+                        @endif
                         <div class="form-group">
-                            <img id="preview" class="img-fluid" src="#" alt="">
+                            <div class="form-row">
+                                <div class="col d-flex flex-column justify-content-between">
+                                    <label>Choose a file</label>
+                                    <div class="custom-file">
+                                        <input type="file" id="input-upload-image" name="image" class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
+                                        <label class="custom-file-label my-0" for="image"></label>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <label class="d-flex justify-content-between align-items-center">Add to a board <a class="btn btn-dark btn-sm" href="{{ route('board.create') }}">New board</a></label>
+
+
+
+                                    <select name="board" class="form-control">
+                                        <option value="" selected>...</option>
+                                        @foreach ($boards as $board)
+                                        <option value="{{ $board->id }}">{{ $board->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <a class="btn btn-light" href="{{ route('home') }}">Back</a>
-                        <a class="btn btn-light" href="{{ route('image.index') }}">Images</a>
-                        <input type="submit" class="btn btn-dark"/>
+
+                        <div class="form-group">
+                            <img id="preview" class="img-fluid rounded mx-auto d-block" src="#" alt="">
+                        </div>
+
+                        <div class="form-group">
+                            <input name="title" class="form-control" type="text" placeholder="Title">
+                        </div>
+
+                        <div class="form-group">
+                            <input data-role="tagsinput" id="tags" name="tags" class="form-control" type="text" placeholder="Tags">
+                            <small class="form-text text-muted">Write tags separated by commas like 'lol,mdr,cul'</small>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-between my-0">
+                            <a class="btn btn-light" href="{{ route('home') }}">Back</a>
+                            <input type="submit" class="btn btn-dark" />
+                        </div>
                     </form>
                 </div>
             </div>

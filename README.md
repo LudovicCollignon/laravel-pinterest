@@ -62,6 +62,31 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - [OP.GG](https://op.gg)
 - [云软科技](http://www.yunruan.ltd/)
 
+## Create Migrations
+
+Create Model
+```php artisan make:model Board```
+
+Create Migration
+```php artisan make:migration create_boards_table```
+
+In the new file created, add the column you want in create()
+
+## Run migrations
+
+Before starting your work, make sure all migrations have been runned.
+
+If you want to run migrations wich have not been runned yet :<br>
+```php artisan migrate```
+
+If you want to re run all migrations :<br>
+```php artisan migrate:refresh```
+
+If you want to fill your database with test data, add --seed option :<br>
+```php artisan migrate:refresh --seed```
+
+
+
 ## Contributing
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).

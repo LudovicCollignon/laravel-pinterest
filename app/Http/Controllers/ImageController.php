@@ -8,6 +8,7 @@ use App\Image;
 use App\ImageTag;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
@@ -22,9 +23,11 @@ class ImageController extends Controller
     public function index(Request $request)
     {
         $images = Image::all();
+        $boards = User::find(Auth::id())->boards;
 
         return view('image.index', [
-            'images' => $images
+            'images' => $images,
+            'boards' => $boards
         ]);
     }
 
@@ -35,7 +38,10 @@ class ImageController extends Controller
      */
     public function create()
     {
-        return view('image.create');
+        
+        $boards = User::find(Auth::id())->boards;
+        
+        return view('image.create', ["boards" => $boards]);
     }
 
     /**
@@ -62,28 +68,39 @@ class ImageController extends Controller
         $image->description = "";
         $image->title = $request->title;
         $image->filename = $path;
-
+        
         //save images with categories in another method
         $image->save();
+        
+        $image->boards()->attach($request->board);
 
+
+        /* tags */
+
+        // tags name from form
         $tags = explode(',',$request->tags);
 
-        foreach ($tags as $t) {
+        // existent tags modele matches withs $tags
+        $existentTags = Tag::whereIn('name', $tags)->get();
 
-            $tag = Tag::where('name', $t)->first();
-            if (empty($tag)) {
-                $tag = new Tag;
+        // key => tagName , value => Tag modele
+        $existentTagsByName = [];
 
-                $tag->name = $t;
-                $tag->save();
+        foreach ($existentTags as $tag) {
+            $existentTagsByName[$tag->name] = $tag;
+        }
+
+        foreach ($tags as $tag) {
+
+            if (!array_key_exists($tag, $existentTagsByName)) {
+                $imageTag = new Tag;
+                $imageTag->name = $tag;
+                $imageTag->save();
+            } else {
+                $imageTag = $existentTagsByName[$tag];
             }
 
-            $image_tag = new ImageTag;
-
-            $image_tag->image_id = $image->id;
-            $image_tag->tag_id = $tag->id;
-
-            $image_tag->save();
+            $image->tags()->attach($imageTag);
         }
 
         return redirect()->route('image.index');
