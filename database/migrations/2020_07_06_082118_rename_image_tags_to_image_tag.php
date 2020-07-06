@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropImagesTagsTable extends Migration
+class RenameImageTagsToImageTag extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,9 @@ class DropImagesTagsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('images_tags');
+        if (Schema::hasTable('image_tags')) {
+            Schema::rename('image_tags', 'image_tag');
+        }
     }
 
     /**
@@ -23,6 +25,6 @@ class DropImagesTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images_tags');
+        //
     }
 }

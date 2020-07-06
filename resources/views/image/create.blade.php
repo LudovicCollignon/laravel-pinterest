@@ -6,30 +6,34 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Ton image</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('image.store') }}" enctype="multipart/form-data">
                         @csrf
-
-                        <div class="col">
-                            @if ($errors->has('image'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('image') }}
-                            </div>
-                            @endif
+                        @if ($errors->has('image'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('image') }}
                         </div>
-                        <div class="form-group mb-0">
+                        @endif
+                        <div class="form-group">
                             <div class="form-row">
-                                <div class="col">
+                                <div class="col d-flex flex-column justify-content-between">
+                                    <label>Choose a file</label>
                                     <div class="custom-file">
                                         <input type="file" id="input-upload-image" name="image" class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
-                                        <label class="custom-file-label" for="image"></label>
+                                        <label class="custom-file-label my-0" for="image"></label>
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <select id="inputState" class="form-control">
-                                        <option value="" selected>Boards...</option>
-                                        <option>Board1</option>
+
+                                    <label class="d-flex justify-content-between align-items-center">Add to a board <a class="btn btn-dark btn-sm" href="{{ route('board.create') }}">New board</a></label>
+
+
+
+                                    <select name="board" class="form-control">
+                                        <option value="" selected>...</option>
+                                        @foreach ($boards as $board)
+                                        <option value="{{ $board->id }}">{{ $board->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -52,12 +56,11 @@
                             <a class="btn btn-light" href="{{ route('home') }}">Back</a>
                             <input type="submit" class="btn btn-dark" />
                         </div>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 

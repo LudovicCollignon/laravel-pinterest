@@ -18,4 +18,20 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
+
+    /**
+     * Get the boards for the user.
+     */
+    public function boards()
+    {
+        return $this->hasMany('App\Board');
+    }
+
+    /**
+     * Get the boards for the user.
+     */
+    public function images()
+    {
+        return $this->hasMany('App\Image');
+    }
 }

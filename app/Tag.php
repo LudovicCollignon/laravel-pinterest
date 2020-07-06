@@ -14,4 +14,12 @@ class Tag extends Model
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * The images that belong to the tag.
+     */
+    public function images()
+    {
+        return $this->belongsToMany('App\Image');
+    }
 }
