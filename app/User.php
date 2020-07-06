@@ -28,10 +28,18 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the boards for the user.
+     * Get the images uploaded by the user.
+     */
+    public function uploaded_images()
+    {
+        return $this->belongsToMany('App\Image');
+    }
+
+    /**
+     * Get the images uploaded by the user.
      */
     public function images()
     {
-        return $this->hasMany('App\Image');
+        return $this->belongsToMany('App\Image');
     }
 }

@@ -26,7 +26,7 @@ Route::get('/', "ImageController@index", function () {
 Route::middleware('auth')->group(function () {
     Route::resource('image', 'ImageController');
     Route::resource('board', 'BoardController');
-    Route::post('save-image', 'BoardController@addImage')->name('image.save');
+    Route::post('save-image', 'ImageController@saveImage')->name('image.save');
     Route::get('image/save/{id}', [
         'as' => 'image.download',
         'uses' => 'ImageController@download'

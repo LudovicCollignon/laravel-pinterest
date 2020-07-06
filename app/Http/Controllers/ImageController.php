@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Tag;
 use App\User;
+use App\Board;
 use App\Image;
-use App\ImageTag;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -38,9 +37,9 @@ class ImageController extends Controller
      */
     public function create()
     {
-        
+
         $boards = User::find(Auth::id())->boards;
-        
+
         return view('image.create', ["boards" => $boards]);
     }
 
@@ -52,6 +51,8 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request->board);
         // get file by input name => "image"
         $image = $request->image;
 
@@ -63,22 +64,29 @@ class ImageController extends Controller
         $image = InterventionImage::make($request->image)->widen($screen_width / 5)->encode();
         Storage::put('/public/thumbs/' . $path, $image);
 
+        // save image
         $image = new Image;
-        $image->user_id = "1";
-        $image->description = "";
+        $image->user_id = Auth::id();
+        $image->description = $request->description;
         $image->title = $request->title;
         $image->filename = $path;
-        
-        //save images with categories in another method
-        $image->save();
-        
-        $image->boards()->attach($request->board);
 
+        $image->save();
+
+        // attach image to board if it exists
+        if (isset($request->board))
+            $image->boards()->attach($request->board);
+
+
+        // add image to user gallery
+        $user = User::find(Auth::id());
+
+        $user->uploaded_images()->attach($image);
 
         /* tags */
 
         // tags name from form
-        $tags = explode(',',$request->tags);
+        $tags = explode(',', $request->tags);
 
         // existent tags modele matches withs $tags
         $existentTags = Tag::whereIn('name', $tags)->get();
@@ -106,9 +114,10 @@ class ImageController extends Controller
         return redirect()->route('image.index');
     }
 
-    public function download($imageId){
+    public function download($imageId)
+    {
         $image = Image::where('id', $imageId)->firstOrFail();
-        $path = public_path(). '/storage/images/'. $image->filename;
+        $path = public_path() . '/storage/images/' . $image->filename;
         return response()->download($path, $image->title, ['Content-Type' => $image->mime]);
     }
 
@@ -129,7 +138,7 @@ class ImageController extends Controller
         foreach ($tags as $tag) {
             $images = array_merge($images, $tag->images()->where('image_id', '!=', $image->id)->get()->all());
         }
-        
+
         // $tags = ImageTag::where('image_id', $image->id)->get('tag_id')->toArray();
 
         // foreach()
@@ -177,5 +186,31 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Add the specified image to the specified board.
+     *
+     * @param  Model  $image
+     * @param  Model  $board
+     * @return \Illuminate\Http\Response
+     */
+    public function saveImage(Request $request)
+    {
+        if (!isset($request->image))
+            dd('erreur à gérer');
+
+        $image = Image::find($request->image);
+
+        if (NULL !== $request->board) {
+            $board = Board::find($request->board);
+            $board->images()->attach($image);
+        }
+
+        $user = User::find(Auth::id());
+
+        $user->uploaded_images()->attach($image);
+
+        return redirect()->route('home');
     }
 }
