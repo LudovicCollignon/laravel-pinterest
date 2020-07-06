@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Request;
 
 Route::get('/', "ImageController@index", function () {
     return view('image.index');
-});
+})->name('home');
 
 
 Route::middleware('auth')->group(function () {
@@ -34,7 +34,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::any('/search', 'SearchController@getSearch')->name('search-tag');

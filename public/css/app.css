@@ -4,11 +4,16 @@ body {
 .image-container {
     position: relative;
 }
-.image-button {
+.image {
+    cursor: zoom-in;
+}
+.display-none {
     display: none;
+}
+.image-button {
     position: absolute;
-    top: 10%;
-    left: 80%;
+    top: 8%;
+    left: 90%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     color: white;
@@ -18,6 +23,12 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
-img:hover + .image-button, .image-button:hover {
+.image:hover + .image-button, .image-button:hover {
     display: inline-block;
 } 
+.image-show-details {
+    padding-left: 50px;
+}
+.image-show-buttons {
+    display: inline-flex;
+}

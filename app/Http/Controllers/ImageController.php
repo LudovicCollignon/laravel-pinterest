@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Tag;
 use App\User;
 use App\Image;
-use App\ImageTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
 
@@ -118,7 +118,13 @@ class ImageController extends Controller
      */
     public function show($id)
     {
-        //
+        $image = Image::find($id);
+        $user = User::find($image->user_id);
+
+        return view('image.show', [
+            'image' => $image,
+            'user' => $user
+        ]);
     }
 
     /**
