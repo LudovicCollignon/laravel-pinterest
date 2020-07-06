@@ -8,7 +8,7 @@
         <a href="{{ route('image.show', $image->id) }}" class="image">
             <img class="rounded m-1" src="<?php echo asset("storage/thumbs/$image->filename") ?>"></img>
         </a>
-        <button type="button" class="btn btn-danger btn-sm image-button" data-toggle="modal" data-target="#saveImageModal">
+        <button type="button" class="btn btn-danger btn-sm image-button display-none" data-toggle="modal" data-target="#saveImageModal">
             Save
         </button>
     </div>
