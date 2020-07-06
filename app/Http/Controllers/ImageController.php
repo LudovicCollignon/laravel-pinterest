@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Tag;
 use App\User;
 use App\Image;
+use App\ImageTag;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -119,11 +121,16 @@ class ImageController extends Controller
     public function show($id)
     {
         $image = Image::find($id);
+
+        $tags = ImageTag::where('image_id', $image->id)->get('tag_id')->toArray();
+        $images = Image::whereIn('id', ImageTag::whereIn('tag_id', $tags)->get('image_id')->toArray())->where('id', '!=', $image->id)->get();
+
         $user = User::find($image->user_id);
 
         return view('image.show', [
             'image' => $image,
-            'user' => $user
+            'user' => $user,
+            'images' => $images
         ]);
     }
 
