@@ -39,41 +39,46 @@
                 </svg>
             </a>
 
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ route('image.index') }}">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Boards
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('board.index') }}">My boards</a>
-                            <a class="dropdown-item" href="{{ route('board.create') }}">New board</a>
-                        </div <li class="nav-item">
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Images
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('image.index') }}">My images</a>
-                            <a class="dropdown-item" href="{{ route('image.create') }}">Add image</a>
-                        </div <li class="nav-item">
-                    </li>
                 </ul>
+                @if ( get_class(\Request::route()->getController()) == "App\Http\Controllers\ImageController" || get_class(\Request::route()->getController()) == "App\Http\Controllers\SearchController" )
+                    <form class="form-inline my-2 my-lg-0" action="{{ route('search') }}" method="POST" role="search">
+                        {{ csrf_field() }}
+                        <div class="input-group">
+                            <input class="form-control mr-sm-2" type="text" class="form-control" name="q" placeholder="Search users"> <span class="input-group-btn">
+                                <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
+                                    <span class="glyphicon glyphicon-search">Search</span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                @endif
 
-                <form class="form-inline my-2 my-lg-0" action="{{ route('search-tag') }}" method="POST" role="search">
-                    {{ csrf_field() }}
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" class="form-control" name="q" placeholder="Search users"> <span class="input-group-btn">
-                            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
-                                <span class="glyphicon glyphicon-search">Search</span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    @if (!empty(Auth::user()))
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>{{ Auth::user()->name }}</a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                            <a class="dropdown-item" href="{{ route('user.show', Auth::user()->name) }}">My account</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}">Log out</a>
+                            </div>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                    @endif
+                  </ul>
             </div>
 
         </nav>
