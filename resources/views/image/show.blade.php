@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <img class="rounded m-1" src="<?php echo asset("storage/images/$image->filename")?>"></img>
+                            <img class="rounded m-1 img-fluid" src="{{ asset("storage/thumbs/$image->filename") }}"></img>
                         </div>
                         <div class="col-6 image-show-details">
                             <div image-show-buttons>
@@ -42,7 +42,7 @@
         @foreach ($images as $image)
             <div class="image-container">
                 <a href="{{ route('image.show', $image->id) }}" class="image">
-                    <img class="rounded m-1" src="<?php echo asset("storage/thumbs/$image->filename")?>"></img>
+                    <img class="rounded m-1 img-fluid img-resp" src="<?php echo asset("storage/thumbs/$image->filename")?>"></img>
                 </a>
                 <a href="{{ route('image.create') }}" class="btn btn-danger btn-sm image-button display-none">Add</a>
             </div>

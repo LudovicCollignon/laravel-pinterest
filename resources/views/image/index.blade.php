@@ -3,10 +3,11 @@
 @section('content')
 <div class="d-flex justify-content-center flex-wrap align-items-start">
     @if (isset($images) && $images->isNotEmpty())
+
     @foreach ($images as $image)
     <div class="image-container">
         <a href="{{ route('image.show', $image->id) }}" class="image">
-            <img class="rounded m-1" src="<?php echo asset("storage/thumbs/$image->filename") ?>"></img>
+            <img class="rounded m-1 img-fluid img-resp" src="{{ asset("storage/thumbs/$image->filename") }}"></img>
         </a>
         <button type="button" class="btn btn-danger btn-sm image-button display-none" data-toggle="modal" data-target="#saveImageModal">
             Save

@@ -23,12 +23,33 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
-.image:hover + .image-button, .image-button:hover {
+.image:hover + .image-button,
+.image-button:hover {
     display: inline-block;
-} 
+}
 .image-show-details {
     padding-left: 50px;
 }
 .image-show-buttons {
     display: inline-flex;
+}
+
+.img-resp {
+    width: 150px;
+}
+
+@media (min-width: 575.98px) {
+    .img-resp {
+        width: 200px;
+    }
+}
+@media (min-width: 767.98px) {
+    .img-resp {
+        width: 300px;
+    }
+}
+@media (min-width: 1199.98px) {
+    .img-resp {
+        width: 350px;
+    }
 }

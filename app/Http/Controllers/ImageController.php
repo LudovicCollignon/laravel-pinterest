@@ -51,8 +51,6 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-
-        dd($request->board);
         // get file by input name => "image"
         $image = $request->image;
 
@@ -61,7 +59,7 @@ class ImageController extends Controller
 
         // save thumbs in storage/app/public/thumbs/ with sameName
         $screen_width = $_COOKIE['screenWidth'];
-        $image = InterventionImage::make($request->image)->widen($screen_width / 5)->encode();
+        $image = InterventionImage::make($request->image)->widen(400)->encode('jpg');
         Storage::put('/public/thumbs/' . $path, $image);
 
         // save image

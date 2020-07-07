@@ -25,6 +25,6 @@ class RenameImageTagsToImageTag extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('image_tag');
     }
 }
