@@ -145,10 +145,13 @@ class ImageController extends Controller
 
         $user = User::find($image->user_id);
 
+        $boards = $user->boards;
+
         return view('image.show', [
             'image' => $image,
             'user' => $user,
-            'images' => $images
+            'images' => $images, 
+            'boards'=> $boards
         ]);
     }
 

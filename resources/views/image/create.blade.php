@@ -27,8 +27,6 @@
 
                                     <label class="d-flex justify-content-between align-items-center">Add to a board <a class="btn btn-dark btn-sm" href="{{ route('board.create') }}">New board</a></label>
 
-
-
                                     <select name="board" class="form-control">
                                         <option value="" selected>...</option>
                                         @foreach ($boards as $board)
@@ -45,6 +43,10 @@
 
                         <div class="form-group">
                             <input name="title" class="form-control" type="text" placeholder="Title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea name="description" rows="5" class="form-control" type="textarea" placeholder="Description"></textarea>
                         </div>
 
                         <div class="form-group">
