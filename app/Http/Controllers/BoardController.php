@@ -47,7 +47,11 @@ class BoardController extends Controller
 
         $board->save();
 
-        return redirect()->route('board.show', [$board]);
+        return redirect()->route('board.show', [
+            'user_name' => Auth::user()->name, 
+            'board_id' => $board->id, 
+            'board_name' => $board->name
+        ]);
     }
 
     /**
@@ -56,9 +60,9 @@ class BoardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_name, $board_id, $board_name)
     {
-        $board = Board::find($id);
+        $board = Board::find($board_id);
         $images = $board->images;
 
         return view('board.show', [
@@ -99,31 +103,5 @@ class BoardController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Add the specified image to the specified board.
-     *
-     * @param  Model  $image
-     * @param  Model  $board
-     * @return \Illuminate\Http\Response
-     */
-    public function addImage(Request $request)
-    {   
-        if (!isset($request->image))
-            dd('erreur à gérer');
-
-        $image = Image::find($request->image);
-        
-        if (NULL !== $request->board) {
-            $board = Board::find($request->board);
-            $board->images()->attach($image);
-        }
-
-        $user = User::find(Auth::id());
-
-        $image->user()->associate($user);
-
-        return redirect()->route('home');
     }
 }

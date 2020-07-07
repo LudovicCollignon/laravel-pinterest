@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,7 +16,10 @@ class UserController extends Controller
      */
     public function show($user_name)
     {
-        echo 'salut'.'<br>';
-        echo 'ici show les tableaux et donc les images du user + bouton pour ajouter une image comme sur /image';
+        $boards = User::find(Auth::id())->boards;
+
+        return view('user.show', [
+            'boards' => $boards
+        ]);
     }
 }

@@ -5,7 +5,7 @@
         <ul class="list-group list-group-flush">
             @foreach ($boards as $board)
             <li class="list-group-item">
-                <a href="{{ route('board.show', $board) }}" class="text-dark">{{ $board->name }}</a>
+                <a href="{{ route('board.show', ['user_name' => Auth::user()->name, 'board_id' => $board->id, 'board_name' => $board->name]) }}" class="text-dark">{{ $board->name }}</a>
             </li>
             @endforeach
         </ul>
