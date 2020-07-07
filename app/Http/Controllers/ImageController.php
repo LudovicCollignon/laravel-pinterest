@@ -22,12 +22,20 @@ class ImageController extends Controller
     public function index(Request $request)
     {
         $images = Image::all();
-        $boards = User::find(Auth::id())->boards;
+        if (Auth::check()) {
+            $boards = User::find(Auth::id())->boards;
 
-        return view('image.index', [
-            'images' => $images,
-            'boards' => $boards
-        ]);
+            return view('image.index', [
+                'images' => $images,
+                'boards' => $boards
+            ]);
+        } else {
+            return view('image.index', [
+                'images' => $images
+            ]);
+        }
+
+        
     }
 
     /**
@@ -144,6 +152,39 @@ class ImageController extends Controller
         return view('image.show', [
             'image' => $image,
             'user' => $user,
+            'images' => $images,
+            'boards' => $boards
+        ]);
+    }
+
+    public function today(Request $request)
+    {
+        $images = Image::whereDate('created_at', date('Y-m-d'))->get();
+        $boards = User::find(Auth::id())->boards;
+
+        return view('image.index', [
+            'images' => $images,
+            'boards' => $boards
+        ]);
+    }
+
+    public function feed(Request $request)
+    {
+        $images = Image::all();
+        $boards = User::find(Auth::id())->boards;
+
+        return view('image.index', [
+            'images' => $images,
+            'boards' => $boards
+        ]);
+    }
+
+    public function followings(Request $request)
+    {
+        $images = Image::all();
+        $boards = User::find(Auth::id())->boards;
+
+        return view('image.index', [
             'images' => $images,
             'boards' => $boards
         ]);

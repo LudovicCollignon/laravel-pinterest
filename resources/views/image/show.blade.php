@@ -32,7 +32,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between flex-wrap align-items-end">
-                                    <a class="btn btn-light" href="{{ route('home') }}">Back</a>
+                                    <a class="btn btn-light" href="{{ url()->previous() }}">Back</a>
                                     <div class="d-flex justify-content-between flex-wrap align-items-end">
                                         <a href="{{ route('image.download', $image->id) }}" class="d-flex align-items-end px-3">
                                             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

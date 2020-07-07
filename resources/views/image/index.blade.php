@@ -12,6 +12,7 @@
         <button type="button" name="save-btn" class="btn btn-danger btn-sm image-button display-none" data-image="{{ $image->id }}" data-toggle="modal" data-target="#saveImageModal">
             Save
         </button>
+        @endisset
     </div>
     @endforeach
     @else
@@ -25,6 +26,7 @@
 
 <!-- saveImageModal -->
 @isset ($image)
+@isset ($boards)
 <div class="modal fade" id="saveImageModal" tabindex="-1" role="dialog" aria-labelledby="saveImageModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -57,7 +59,6 @@
     </div>
 </div>
 @endisset
-
 
 @section('script')
 <script>
