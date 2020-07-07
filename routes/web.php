@@ -24,19 +24,27 @@ Route::get('/', "ImageController@index", function () {
 
 Route::get('/today', 'ImageController@today')->name('today');
 
+Auth::routes();
+
 Route::middleware('auth')->group(function () {
+    
     Route::resource('image', 'ImageController');
-    Route::resource('board', 'BoardController')->except(['show', 'create']);
     Route::get('image/save/{id}', 'ImageController@download')->name('image.download');
     Route::get('/my-feed', 'ImageController@feed')->name('my-feed');
     Route::get('/followings', 'ImageController@followings')->name('followings');
+    Route::post('save-image', 'ImageController@saveImage')->name('image.save');
+    
+    Route::resource('board', 'BoardController')->except(['show', 'create']);
     Route::get('/board/create', 'BoardController@create')->name('board.create');
     Route::get('/{user_name}/{board_id}-{board_name}', 'BoardController@show')->name('board.show');
-    Route::get('/{user_name}', 'UserController@show')->name('user.show');
-    Route::post('save-image', 'ImageController@saveImage')->name('image.save');
     Route::post('board-remove-image', 'BoardController@removeImage')->name('board.remove.image');
+
+
+    Route::get('profil/{user_name}', 'UserController@show')->name('user.show');
+
 });
 
-Auth::routes();
-Route::get('/logout', 'Auth\LoginController@logout');
 Route::any('/search', 'SearchController@getSearch')->name('search');
+
+
+Route::get('/home', 'HomeController@index')->name('home');
