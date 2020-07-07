@@ -162,6 +162,39 @@ class ImageController extends Controller
         ]);
     }
 
+    public function today(Request $request)
+    {
+        $images = Image::whereDate('created_at', date('Y-m-d'))->get();
+        $boards = User::find(Auth::id())->boards;
+
+        return view('image.index', [
+            'images' => $images,
+            'boards' => $boards
+        ]);
+    }
+
+    public function feed(Request $request)
+    {
+        $images = Image::all();
+        $boards = User::find(Auth::id())->boards;
+
+        return view('image.index', [
+            'images' => $images,
+            'boards' => $boards
+        ]);
+    }
+
+    public function followings(Request $request)
+    {
+        $images = Image::all();
+        $boards = User::find(Auth::id())->boards;
+
+        return view('image.index', [
+            'images' => $images,
+            'boards' => $boards
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

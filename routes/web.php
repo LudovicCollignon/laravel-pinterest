@@ -22,9 +22,12 @@ Route::get('/', "ImageController@index", function () {
     return view('image.index');
 })->name('home');   
 
+Route::get('/today', 'ImageController@today')->name('today');
 
 Route::middleware('auth')->group(function () {
     Route::resource('image', 'ImageController');
+    Route::get('/my-feed', 'ImageController@feed')->name('my-feed');
+    Route::get('/followings', 'ImageController@followings')->name('followings');
     Route::resource('board', 'BoardController')->except([
         'show', 'create'
     ]);
