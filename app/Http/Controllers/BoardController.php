@@ -104,30 +104,4 @@ class BoardController extends Controller
     {
         //
     }
-
-    /**
-     * Add the specified image to the specified board.
-     *
-     * @param  Model  $image
-     * @param  Model  $board
-     * @return \Illuminate\Http\Response
-     */
-    public function addImage(Request $request)
-    {   
-        if (!isset($request->image))
-            dd('erreur à gérer');
-
-        $image = Image::find($request->image);
-        
-        if (NULL !== $request->board) {
-            $board = Board::find($request->board);
-            $board->images()->attach($image);
-        }
-
-        $user = User::find(Auth::id());
-
-        $image->user()->associate($user);
-
-        return redirect()->route('home');
-    }
 }
