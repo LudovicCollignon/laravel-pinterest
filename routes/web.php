@@ -25,14 +25,19 @@ Route::get('/', "ImageController@index", function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('image', 'ImageController');
-    Route::resource('board', 'BoardController');
+    Route::resource('board', 'BoardController')->except([
+        'show', 'create'
+    ]);
+    Route::get('/board/create', 'BoardController@create')->name('board.create');
+    Route::get('/{user_name}/{board_id}-{board_name}', 'BoardController@show')->name('board.show');
     Route::post('save-image', 'BoardController@addImage')->name('image.save');
     Route::get('image/save/{id}', [
         'as' => 'image.download',
         'uses' => 'ImageController@download'
     ]);
+    Route::get('/{user_name}', 'UserController@show')->name('user.show');
 });
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
-Route::any('/search', 'SearchController@getSearch')->name('search-tag');
+Route::any('/search', 'SearchController@getSearch')->name('search');

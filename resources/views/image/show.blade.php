@@ -27,7 +27,7 @@
                                 <p class="mb-5">{{ $user->name }}</p>
                                 <p>{{ $image->description }}</p>
                             </div>
-                            <a class="btn btn-light" href="{{ route('home') }}">Back</a>
+                            <a class="btn btn-light" href="{{ url()->previous() }}">Back</a>
                         </div>
                     </div>
                 </div>

@@ -47,7 +47,11 @@ class BoardController extends Controller
 
         $board->save();
 
-        return redirect()->route('board.show', [$board]);
+        return redirect()->route('board.show', [
+            'user_name' => Auth::user()->name, 
+            'board_id' => $board->id, 
+            'board_name' => $board->name
+        ]);
     }
 
     /**
@@ -56,9 +60,9 @@ class BoardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_name, $board_id, $board_name)
     {
-        $board = Board::find($id);
+        $board = Board::find($board_id);
         $images = $board->images;
 
         return view('board.show', [

@@ -13,9 +13,14 @@ class SearchController extends Controller
     public function getSearch(Request $request)
     {
         $q = Request::get('q');
+        
         $tags = Tag::where('name', 'LIKE', '%' . $q . '%')->get('id')->toArray();
         $images_tags = Imagetag::whereIn('tag_id', $tags)->get('image_id')->toArray();
-        $images = Image::whereIn('id', $images_tags)->get();
+
+        $images_by_title = Image::where('title', 'LIKE', '%' . $q . '%')->get();
+        $images_by_tags = Image::whereIn('id', $images_tags)->get();
+
+        $images = $images_by_title->combine($images_by_tags);
 
         if (count($images) > 0)
             return view('image.index', [
