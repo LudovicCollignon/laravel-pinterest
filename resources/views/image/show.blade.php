@@ -18,8 +18,8 @@
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 py-2 d-flex flex-column justify-content-between">
                                 <div class="container mb-5 px-0">
-                                    <div class="d-flex justify-content-between flex-wrap align-items-start">
-                                        <p class="mb-5">Uploaded by <b>{{ $user->name }}</b></p>
+                                    <div class="d-flex justify-content-between flex-wrap align-items-start mb-5">
+                                        <p>Uploaded by <b>{{ $user->name }}</b></p>
                                         <a href="{{ route('image.create') }}" class="btn btn-secondary btn-sm">Follow</a>
                                     </div>
 
@@ -35,13 +35,13 @@
                                     <a class="btn btn-light" href="{{ url()->previous() }}">Back</a>
                                     <div class="d-flex justify-content-between flex-wrap align-items-end">
                                         <a href="{{ route('image.download', $image->id) }}" class="d-flex align-items-end px-3">
-                                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="2.2em" height="2.2em" viewBox="0 0 16 16" class="bi bi-download" fill="#000000" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z" />
                                                 <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z" />
                                                 <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z" />
                                             </svg>
                                         </a>
-                                        <button type="button" name="save-btn" class="btn btn-danger btn-sm" data-image="{{ $image->id }}" data-toggle="modal" data-target="#saveImageModal">
+                                        <button type="button" name="save-btn" class="btn btn-danger" data-image="{{ $image->id }}" data-toggle="modal" data-target="#saveImageModal">
                                             Save
                                         </button>
                                     </div>

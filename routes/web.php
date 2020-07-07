@@ -1,8 +1,5 @@
 <?php
 
-use App\Tag;
-use App\Image;
-use App\ImageTag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
@@ -38,5 +35,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Auth::routes();
-Route::get('/logout', 'Auth\LoginController@logout');
+
 Route::any('/search', 'SearchController@getSearch')->name('search');
