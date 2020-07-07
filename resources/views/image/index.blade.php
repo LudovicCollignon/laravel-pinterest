@@ -12,7 +12,6 @@
         <button type="button" name="save-btn" class="btn btn-danger btn-sm image-button display-none" data-image="{{ $image->id }}" data-toggle="modal" data-target="#saveImageModal">
             Save
         </button>
-        @endisset
     </div>
     @endforeach
     @else
@@ -58,6 +57,7 @@
         </div>
     </div>
 </div>
+@endisset
 @endisset
 
 @section('script')

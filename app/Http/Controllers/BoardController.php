@@ -120,6 +120,12 @@ class BoardController extends Controller
 
         $board->images()->detach($image);
 
-        return redirect()->route('board.show', $board);
+        $userName = Auth::user()->name;
+
+        return redirect()->route('board.show', [
+            'user_name' => $userName,
+            'board_id' => $board->id,
+            'board_name' => $board->name
+        ]);
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Tag;
 use App\Image;
-use App\ImageTag;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Collection;
