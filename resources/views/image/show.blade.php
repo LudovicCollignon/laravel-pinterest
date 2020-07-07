@@ -8,21 +8,23 @@
                 <div class="card-header">{{ $image->title }}</div>
                 <div class="card-body p-0">
                     <div class="container">
-                        <div class="row pt-2">
+                        <div class="row py-2">
                             <div class="col-sm-12 col-md-6 col-lg-6 py-2">
                                 <div class="d-flex justify-content-center flex-wrap align-items-start">
-                                    <img class="rounded img-fluid" src="{{ asset("storage/thumbs/$image->filename") }}"></img>
+                                    <a href="{{ route('image.show', $image->id) }}" class="image">
+                                        <img class="rounded img-fluid" src="{{ asset("storage/thumbs/$image->filename") }}"></img>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6 py-2 d-flex flex-column justify-content-between">
                                 <div class="container mb-5 px-0">
-                                    <div class="d-flex justify-content-between flex-wrap align-items-center">
+                                    <div class="d-flex justify-content-between flex-wrap align-items-start">
                                         <p class="mb-5">Uploaded by <b>{{ $user->name }}</b></p>
                                         <a href="{{ route('image.create') }}" class="btn btn-secondary btn-sm">Follow</a>
                                     </div>
 
                                     <div class="d-flex justify-content-between flex-wrap align-items-start">
-                                        <b>Describtion</b>
+                                        <b>Description</b>
                                     </div>
                                     <div class="d-flex justify-content-between flex-wrap align-items-start">
                                         <p>{{ $image->description ?? '...' }}</p>
@@ -39,7 +41,9 @@
                                                 <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z" />
                                             </svg>
                                         </a>
-                                        <a href="{{ route('image.create') }}" class="btn btn-danger">Save</a>
+                                        <button type="button" name="save-btn" class="btn btn-danger btn-sm" data-image="{{ $image->id }}" data-toggle="modal" data-target="#saveImageModal">
+                                            Save
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +61,7 @@
         @foreach ($images as $image)
         <div class="image-container">
             <a href="{{ route('image.show', $image->id) }}" class="image">
-                <img class="rounded m-1 img-fluid img-resp" src="<?php echo asset("storage/thumbs/$image->filename") ?>"></img>
+                <img class="rounded m-1 img-fluid img-resp" src="{{ asset("storage/thumbs/$image->filename") }}"></img>
             </a>
             <button type="button" class="btn btn-danger btn-sm image-button display-none" data-toggle="modal" data-target="#saveImageModal">
                 Save
@@ -68,7 +72,7 @@
 </div>
 @endsection
 
-<!-- Modal -->
+<!-- saveImageModal -->
 @isset ($image)
 <div class="modal fade" id="saveImageModal" tabindex="-1" role="dialog" aria-labelledby="saveImageModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -79,7 +83,7 @@
                     <form method="POST" action="{{ route('image.save') }}" enctype="multipart/form-data" class="my-0">
                         @csrf
                         <div class="form-group">
-                            <input class="form-control" name="image" value="{{ $image->id }}" type="text" hidden />
+                            <input class="form-control" id="image-input" name="image" value="{{ $image->id }}" type="text" hidden />
                         </div>
                         <div class="form-group">
                             <select name="board" class="form-control">
@@ -101,3 +105,18 @@
     </div>
 </div>
 @endisset
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        var btns = document.getElementsByName("save-btn");
+        var inputImage = document.getElementById("image-input");
+        for (btn of btns) {
+            btn.addEventListener('click', function(event) {
+                var image = this.getAttribute('data-image');
+                inputImage.value = image;
+            });
+        }
+    });
+</script>
+@endsection

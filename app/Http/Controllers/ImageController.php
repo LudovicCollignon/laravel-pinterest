@@ -137,12 +137,6 @@ class ImageController extends Controller
             $images = array_merge($images, $tag->images()->where('image_id', '!=', $image->id)->get()->all());
         }
 
-        // $tags = ImageTag::where('image_id', $image->id)->get('tag_id')->toArray();
-
-        // foreach()
-
-        // $images = Image::whereIn('id', ImageTag::whereIn('tag_id', $tags)->get('image_id')->toArray())->where('id', '!=', $image->id)->get();
-
         $user = User::find($image->user_id);
 
         $boards = $user->boards;
@@ -150,8 +144,8 @@ class ImageController extends Controller
         return view('image.show', [
             'image' => $image,
             'user' => $user,
-            'images' => $images, 
-            'boards'=> $boards
+            'images' => $images,
+            'boards' => $boards
         ]);
     }
 
@@ -198,14 +192,19 @@ class ImageController extends Controller
      */
     public function saveImage(Request $request)
     {
-        if (!isset($request->image))
+        if (NULL === $request->image)
             dd('erreur à gérer');
 
         $image = Image::find($request->image);
 
         if (NULL !== $request->board) {
             $board = Board::find($request->board);
-            $board->images()->attach($image);
+
+            $imageExistent = $board->images()->where('image_id', $image->id)->get();
+            
+            if ($imageExistent->isEmpty()) {
+                $board->images()->attach($image);
+            }
         }
 
         $user = User::find(Auth::id());

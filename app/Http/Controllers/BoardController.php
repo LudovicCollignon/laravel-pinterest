@@ -60,9 +60,11 @@ class BoardController extends Controller
     {
         $board = Board::find($id);
         $images = $board->images;
+        $boards = User::find(Auth::id())->boards;
 
         return view('board.show', [
             'board' => $board,
+            'boards' => $boards,
             'images' => $images
         ]);
     }
@@ -99,5 +101,21 @@ class BoardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified image from the board.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function removeImage(Request $request)
+    {
+        $board = Board::find($request->board);
+        $image = Image::find($request->image);
+
+        $board->images()->detach($image);
+
+        return redirect()->route('board.show', $board);
     }
 }

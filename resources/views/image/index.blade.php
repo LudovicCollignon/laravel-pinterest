@@ -9,7 +9,7 @@
         <a href="{{ route('image.show', $image->id) }}" class="image">
             <img class="rounded m-1 img-fluid img-resp" src="{{ asset("storage/thumbs/$image->filename") }}"></img>
         </a>
-        <button type="button" class="btn btn-danger btn-sm image-button display-none" data-toggle="modal" data-target="#saveImageModal">
+        <button type="button" name="save-btn" class="btn btn-danger btn-sm image-button display-none" data-image="{{ $image->id }}" data-toggle="modal" data-target="#saveImageModal">
             Save
         </button>
     </div>
@@ -23,7 +23,7 @@
 </div>
 @endsection
 
-<!-- Modal -->
+<!-- saveImageModal -->
 @isset ($image)
 <div class="modal fade" id="saveImageModal" tabindex="-1" role="dialog" aria-labelledby="saveImageModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -34,8 +34,9 @@
                     <form method="POST" action="{{ route('image.save') }}" enctype="multipart/form-data" class="my-0">
                         @csrf
                         <div class="form-group">
-                            <input class="form-control" name="image" value="{{ $image->id }}" type="text" hidden />
+                            <input class="form-control" id="image-input" name="image" type="text" hidden />
                         </div>
+
                         <div class="form-group">
                             <select name="board" class="form-control">
                                 <option value="" selected>Boards...</option>
@@ -56,3 +57,20 @@
     </div>
 </div>
 @endisset
+
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        var btns = document.getElementsByName("save-btn");
+        var inputImage = document.getElementById("image-input");
+        for (btn of btns) {
+            btn.addEventListener('click', function(event) {
+                var image = this.getAttribute('data-image');
+                console.log(image)
+                inputImage.value = image;
+            });
+        }
+    });
+</script>
+@endsection

@@ -27,10 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('image', 'ImageController');
     Route::resource('board', 'BoardController');
     Route::post('save-image', 'ImageController@saveImage')->name('image.save');
-    Route::get('image/save/{id}', [
-        'as' => 'image.download',
-        'uses' => 'ImageController@download'
-    ]);
+    Route::get('image/save/{id}', 'ImageController@download')->name('image.download');
+    Route::post('board-remove-image', 'BoardController@removeImage')->name('board.remove.image');
 });
 
 Auth::routes();
