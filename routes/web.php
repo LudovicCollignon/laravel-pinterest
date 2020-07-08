@@ -1,8 +1,5 @@
 <?php
 
-use App\Tag;
-use App\Image;
-use App\ImageTag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
@@ -18,14 +15,16 @@ use Illuminate\Support\Facades\Request;
 |
 */
 
-Route::get('/', "ImageController@index", function () {
-    return view('image.index');
-})->name('home');   
+
 
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
-    Route::resource('image', 'ImageController');
+    Route::get('/', "ImageController@index", function () {
+        return view('image.index');
+    })->name('home');   
+    
+    Route::resource('image', 'ImageController')->except(['index']);
     Route::get('image/save/{id}', 'ImageController@download')->name('image.download');
     Route::get('/my-feed', 'ImageController@feed')->name('my-feed');
     Route::get('/today', 'ImageController@today')->name('today');
@@ -39,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('profil/{user_name}', 'UserController@show')->name('user.show');
+    Route::get('follow/{user_id}', 'UserController@follow')->name('user.follow');
+    Route::get('unfollow/{user_id}', 'UserController@unfollow')->name('user.unfollow');
 
 });
 
