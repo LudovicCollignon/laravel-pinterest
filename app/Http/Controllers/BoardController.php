@@ -39,6 +39,10 @@ class BoardController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'boardName' => 'required',
+        ]);
+
         $board = new Board;
 
         $board->name = $request->boardName;

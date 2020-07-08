@@ -4,6 +4,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="card">
                 <div class="card-header">Ton image</div>
                 <div class="card-body">
@@ -44,7 +54,7 @@
                         <div class="form-group">
                             <input name="title" class="form-control" type="text" placeholder="Title">
                         </div>
-                        
+
                         <div class="form-group">
                             <textarea name="description" rows="5" class="form-control" type="textarea" placeholder="Description"></textarea>
                         </div>

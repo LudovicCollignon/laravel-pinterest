@@ -40,7 +40,7 @@
             </a>            
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-3">
                     <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
                     </li>
@@ -67,7 +67,7 @@
                 </form>
                 @endif
 
-                <ul class="navbar-nav ml-auto nav-flex-icons">
+                <ul class="navbar-nav ml-3 nav-flex-icons">
                     @if (!empty(Auth::user()))
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
