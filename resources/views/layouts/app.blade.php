@@ -31,6 +31,15 @@
 
 <body>
     <div id="app">
+        <div class="btn-group dropup position-fixed" style="bottom: 25px; right: 100px;">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                New
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('image.create') }}">New image</a>
+                <a class="dropdown-item" href="{{ route('board.create') }}">New board</a>
+            </div>
+        </div>
         <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
 
             <a class="navbar-brand" href="/">

@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@if ($user->id == Auth::id())
-    <a href="{{ route('image.create') }}" class="btn btn-danger btn-sm">Add image</a>
-@endif
 @unless ($user->id == Auth::id())
     <a href="{{ route($isFollowed ? 'user.unfollow' : 'user.follow', $user) }}" class="btn btn-sm {{ $isFollowed ? 'btn-outline-secondary' : 'btn-secondary' }}">{{ $isFollowed ? 'Unfollow' : 'Follow' }}</a>
 @endunless

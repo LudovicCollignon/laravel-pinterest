@@ -303,6 +303,6 @@ class ImageController extends Controller
 
         $user->uploaded_images()->attach($image);
 
-        return redirect()->route('home')->withErrors($errors);
+        return redirect()->route('home')->withErrors($errors)->withInput();
     }
 }

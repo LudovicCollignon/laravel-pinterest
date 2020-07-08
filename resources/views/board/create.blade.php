@@ -19,7 +19,7 @@
 
                         <div class="form-group d-flex justify-content-between my-0">
                             <a class="btn btn-light" href="{{ route('home') }}">Cancel</a>
-                            <input type="submit" class="btn btn-dark" />
+                            <input type="submit" value="Create" class="btn btn-dark" />
                         </div>
                     </form>
                 </div>

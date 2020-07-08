@@ -4,13 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12">
-            <div class="card">  
-                <div class="card-header d-flex align-items-center">
+            <div class="card">
+                <div class="card-header d-flex justofy-content-between align-items-center">
                     <a href="{{ url()->previous() }}" class="d-flex align-items-end px-3 mr-3">
                         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="black" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 0 1 0 .708L5.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
-                            <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
-                          </svg>
+                            <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 0 1 0 .708L5.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                            <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z" />
+                        </svg>
                     </a>
                     <b>{{ $board->name }}</b>
                 </div>
@@ -38,9 +38,9 @@
                                 <img class="rounded m-1 img-fluid img-resp" src="{{ asset("storage/thumbs/$image->filename") }}"></img>
                             </a>
                             @if ($user->name == Auth::user()->name)
-                                <button type="button" name="remove-btn" class="btn btn-danger btn-sm image-button display-none" data-image="{{ $image->id }}" data-board="{{ $board->id }}" data-toggle="modal" data-target="#removeImageModal">
-                                    Remove
-                                </button>
+                            <button type="button" name="remove-btn" class="btn btn-danger btn-sm image-button display-none" data-image="{{ $image->id }}" data-board="{{ $board->id }}" data-toggle="modal" data-target="#removeImageModal">
+                                Remove
+                            </button>
                             @endif
                         </div>
                         @endforeach
