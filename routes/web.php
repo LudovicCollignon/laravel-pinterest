@@ -22,15 +22,13 @@ Route::get('/', "ImageController@index", function () {
     return view('image.index');
 })->name('home');   
 
-Route::get('/today', 'ImageController@today')->name('today');
-
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
-    
     Route::resource('image', 'ImageController');
     Route::get('image/save/{id}', 'ImageController@download')->name('image.download');
     Route::get('/my-feed', 'ImageController@feed')->name('my-feed');
+    Route::get('/today', 'ImageController@today')->name('today');
     Route::get('/followings', 'ImageController@followings')->name('followings');
     Route::post('save-image', 'ImageController@saveImage')->name('image.save');
     
@@ -45,6 +43,3 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::any('/search', 'SearchController@getSearch')->name('search');
-
-
-Route::get('/home', 'HomeController@index')->name('home');
