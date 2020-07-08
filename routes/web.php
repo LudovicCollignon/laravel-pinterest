@@ -15,15 +15,15 @@ use Illuminate\Support\Facades\Request;
 |
 */
 
-Route::get('/', "ImageController@index", function () {
-    return view('image.index');
-})->name('home');   
 
-Route::get('/today', 'ImageController@today')->name('today');
 
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
+    Route::get('/today', 'ImageController@today')->name('today');
+    Route::get('/', "ImageController@index", function () {
+        return view('image.index');
+    })->name('home');   
     
     Route::resource('image', 'ImageController');
     Route::get('image/save/{id}', 'ImageController@download')->name('image.download');
@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('profil/{user_name}', 'UserController@show')->name('user.show');
+    Route::get('follow/{user_id}', 'UserController@follow')->name('user.follow');
 
 });
 

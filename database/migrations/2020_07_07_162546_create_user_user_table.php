@@ -15,8 +15,8 @@ class CreateUserUserTable extends Migration
     {
         Schema::create('user_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('follower')->constrained('users')->onDelete('cascade');
-            $table->foreignId('followee')->constrained('users')->onDelete('cascade');
+            $table->foreignId('follower_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('followee_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

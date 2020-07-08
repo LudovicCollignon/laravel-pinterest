@@ -42,4 +42,22 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Image');
     }
+
+    /**
+     * Get the followers of the user.
+     */
+    public function followers()
+    {
+        return $this->belongsToMany('App\User', 'user_user', 'followee_id', 'follower_id');
+
+    }
+
+    /**
+     * Get the followees of the user.
+     */
+    public function followees()
+    {
+        return $this->belongsToMany('App\User', 'user_user', 'follower_id', 'followee_id');
+    }
+
 }

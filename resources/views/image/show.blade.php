@@ -20,7 +20,9 @@
                                 <div class="container mb-5 px-0">
                                     <div class="d-flex justify-content-between flex-wrap align-items-start mb-5">
                                         <p>Uploaded by <b>{{ $user->name }}</b></p>
-                                        <a href="{{ route('image.create') }}" class="btn btn-secondary btn-sm">Follow</a>
+                                        @unless ($user->id == Auth::id())
+                                        <a href="{{ route('user.follow', $user) }}" class="btn btn-secondary btn-sm">Follow</a>
+                                        @endunless
                                     </div>
 
                                     <div class="d-flex justify-content-between flex-wrap align-items-start">
