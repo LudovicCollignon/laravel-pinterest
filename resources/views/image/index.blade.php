@@ -2,7 +2,18 @@
 
 @section('content')
 <div class="d-flex justify-content-center flex-wrap align-items-start">
-    @if (isset($images) && $images->isNotEmpty())
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endif
+@if (isset($images) && $images->isNotEmpty())
+<div class="d-flex justify-content-center flex-wrap align-items-start">
 
     @foreach ($images as $image)
     <div class="image-container">
@@ -49,7 +60,7 @@
 
                         <div class="form-group d-flex justify-content-between my-0">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-dark" />
+                            <input type="submit" value="Save" class="btn btn-dark" />
                         </div>
                     </form>
                 </div>

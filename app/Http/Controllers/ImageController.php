@@ -7,9 +7,11 @@ use App\User;
 use App\Board;
 use App\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
 use Intervention\Image\Facades\Image as InterventionImage;
 
@@ -44,7 +46,6 @@ class ImageController extends Controller
      */
     public function create()
     {
-
         $boards = User::find(Auth::id())->boards;
 
         return view('image.create', ["boards" => $boards]);
@@ -58,6 +59,15 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'image' => 'mimes:jpeg,jpg,png',
+            'board' => 'required',
+            'title' => 'max:255|required',
+        ], [
+            'board.required' => 'Please choose a board or create a new one.',
+        ]);
+
         // get file by input name => "image"
         $image = $request->image;
 
@@ -149,10 +159,10 @@ class ImageController extends Controller
 
         $isFollowed = false;
 
-        if ( $user->id !== Auth::id())            
+        if ($user->id !== Auth::id())
             $isFollowed = $currentUser->followees()->where('followee_id', $user->id)->get()->isNotEmpty();
 
- 
+
         $boards = $user->boards;
 
         return view('image.show', [
@@ -264,8 +274,15 @@ class ImageController extends Controller
      */
     public function saveImage(Request $request)
     {
-        if (NULL === $request->image)
-            dd('erreur à gérer');
+        $validator = Validator::make($request->all(), [
+            'image' => 'required',
+            'board' => 'required',
+        ], [
+            'image.required' => 'An error has occured, the image is not identified.',
+            'board.required' => 'Please choose a board or create a new one.'
+        ])->validate();
+
+
 
         $image = Image::find($request->image);
 
@@ -276,6 +293,9 @@ class ImageController extends Controller
 
             if ($imageExistent->isEmpty()) {
                 $board->images()->attach($image);
+            } else {
+                $errors = new MessageBag;
+                $errors->add('image.exist', 'This image already exist in your board.');
             }
         }
 
@@ -283,6 +303,6 @@ class ImageController extends Controller
 
         $user->uploaded_images()->attach($image);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->withErrors($errors);
     }
 }
