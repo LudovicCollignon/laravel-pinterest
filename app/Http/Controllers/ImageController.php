@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Collection;
 use Intervention\Image\Facades\Image as InterventionImage;
 
 class ImageController extends Controller
@@ -34,8 +35,6 @@ class ImageController extends Controller
                 'images' => $images
             ]);
         }
-
-        
     }
 
     /**
@@ -139,21 +138,29 @@ class ImageController extends Controller
 
         $tags = $image->tags()->get();
 
-        $images = [];
+        $images = new Collection;
 
         foreach ($tags as $tag) {
-            $images = array_merge($images, $tag->images()->where('image_id', '!=', $image->id)->get()->all());
+            $images = $images->merge($tag->images()->where('image_id', '!=', $image->id)->get());
         }
 
         $user = User::find($image->user_id);
+        $currentUser = User::find(Auth::id());
 
+        $isFollowed = false;
+
+        if ( $user->id !== Auth::id())            
+            $isFollowed = $currentUser->followees()->where('followee_id', $user->id)->get()->isNotEmpty();
+
+ 
         $boards = $user->boards;
 
         return view('image.show', [
             'image' => $image,
             'user' => $user,
             'images' => $images,
-            'boards' => $boards
+            'boards' => $boards,
+            'isFollowed' => $isFollowed,
         ]);
     }
 
@@ -242,7 +249,7 @@ class ImageController extends Controller
             $board = Board::find($request->board);
 
             $imageExistent = $board->images()->where('image_id', $image->id)->get();
-            
+
             if ($imageExistent->isEmpty()) {
                 $board->images()->attach($image);
             }
