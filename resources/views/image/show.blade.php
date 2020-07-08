@@ -21,7 +21,7 @@
                                     <div class="d-flex justify-content-between flex-wrap align-items-start mb-5">
                                         <p>Uploaded by <b>{{ $user->name }}</b></p>
                                         @unless ($user->id == Auth::id())
-                                        <a href="{{ route('user.follow', $user) }}" class="btn btn-secondary btn-sm">Follow</a>
+                                        <a href="{{ route($isFollowed ? 'user.unfollow' : 'user.follow', $user) }}" class="btn btn-sm {{ $isFollowed ? 'btn-outline-secondary' : 'btn-secondary' }}">{{ $isFollowed ? 'Unfollow' : 'Follow' }}</a>
                                         @endunless
                                     </div>
 
@@ -33,8 +33,7 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-between flex-wrap align-items-end">
-                                    <a class="btn btn-light" href="{{ url()->previous() }}">Back</a>
+                                <div class="d-flex justify-content-end flex-wrap align-items-end">
                                     <div class="d-flex justify-content-between flex-wrap align-items-end">
                                         <a href="{{ route('image.download', $image->id) }}" class="d-flex align-items-end px-3">
                                             <svg width="2.2em" height="2.2em" viewBox="0 0 16 16" class="bi bi-download" fill="#000000" xmlns="http://www.w3.org/2000/svg">

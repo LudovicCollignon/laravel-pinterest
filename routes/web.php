@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('profil/{user_name}', 'UserController@show')->name('user.show');
     Route::get('follow/{user_id}', 'UserController@follow')->name('user.follow');
+    Route::get('unfollow/{user_id}', 'UserController@unfollow')->name('user.unfollow');
 
 });
 

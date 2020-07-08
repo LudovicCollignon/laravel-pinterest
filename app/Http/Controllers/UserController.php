@@ -39,4 +39,20 @@ class UserController extends Controller
 
         return back();
     }
+
+    /**
+     * remove a user to the followee list of the logged in user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unfollow(Request $request)
+    {
+        $currentUser = User::find(Auth::id());
+        
+        $followee = User::find($request->user_id);
+
+        $currentUser->followees()->detach($followee);
+
+        return back();
+    }
 }

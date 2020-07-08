@@ -145,14 +145,22 @@ class ImageController extends Controller
         }
 
         $user = User::find($image->user_id);
+        $currentUser = User::find(Auth::id());
 
+        $isFollowed = false;
+
+        if ( $user->id !== Auth::id())            
+            $isFollowed = $currentUser->followees()->where('followee_id', $user->id)->get()->isNotEmpty();
+
+ 
         $boards = $user->boards;
 
         return view('image.show', [
             'image' => $image,
             'user' => $user,
             'images' => $images,
-            'boards' => $boards
+            'boards' => $boards,
+            'isFollowed' => $isFollowed,
         ]);
     }
 
