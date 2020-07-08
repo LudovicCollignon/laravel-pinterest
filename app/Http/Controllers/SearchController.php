@@ -24,10 +24,8 @@ class SearchController extends Controller
 
         $images = $images_by_tags->merge($images_by_title);
 
-        if (count($images) > 0)
-            return view('image.index', [
-                'images' => $images
-            ]);
-        else return redirect()->route('image.index');
+        return view('image.index', [
+            'images' => $images
+        ]);
     }
 }

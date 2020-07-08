@@ -58,7 +58,7 @@
                 <form class="form-inline my-2 my-lg-0" action="{{ route('search') }}" method="POST" role="search">
                     {{ csrf_field() }}
                     <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" class="form-control" name="q" placeholder="Search users"> <span class="input-group-btn">
+                        <input class="form-control mr-sm-2" type="text" class="form-control" name="q" placeholder="Search images"> <span class="input-group-btn">
                             <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
                                 <span class="glyphicon glyphicon-search">Search</span>
                             </button>

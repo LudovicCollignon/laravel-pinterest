@@ -16,7 +16,7 @@
     @endforeach
     @else
     <div class="d-flex flex-column justify-content-between flex-wrap align-items-center">
-        <div class="">You don't have any images !</div>
+        <div class="">Oups ! No image found</div>
         <a class="btn btn-dark my-3" href="{{ route('image.create') }}">Add image</a>
     </div>
     @endif

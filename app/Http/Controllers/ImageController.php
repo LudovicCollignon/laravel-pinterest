@@ -116,7 +116,7 @@ class ImageController extends Controller
             $image->tags()->attach($imageTag);
         }
 
-        return redirect()->route('image.index');
+        return redirect()->route('home');
     }
 
     public function download($imageId)
@@ -177,8 +177,23 @@ class ImageController extends Controller
 
     public function feed(Request $request)
     {
-        $images = Image::all();
-        $boards = User::find(Auth::id())->boards;
+        $user = User::find(Auth::id());
+        $boards = $user->boards;
+
+        $tags = new Collection;
+
+        foreach ($boards as $board) {
+            $images = $board->images;
+            foreach ($images as $image) {
+                $tags = $tags->merge($image->tags()->get());
+            }
+        }
+
+        $images = new Collection;
+
+        foreach ($tags as $tag) {
+            $images = $images->merge($tag->images()->get());
+        }
 
         return view('image.index', [
             'images' => $images,
@@ -188,7 +203,16 @@ class ImageController extends Controller
 
     public function followings(Request $request)
     {
-        $images = Image::all();
+        $followees = User::find(Auth::id())->followees;
+
+        $images = new Collection;
+
+        if (!is_null($followees)) {
+            foreach ($followees as $followee) {
+                $images = $images->merge($followee->images()->get());
+            }
+        }
+
         $boards = User::find(Auth::id())->boards;
 
         return view('image.index', [

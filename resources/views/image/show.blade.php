@@ -5,7 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">{{ $image->title }}</div>
+                <div class="card-header d-flex align-items-center">
+                    <a href="{{ url()->previous() }}" class="d-flex align-items-end px-3 mr-3">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="black" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M7.854 4.646a.5.5 0 0 1 0 .708L5.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                            <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+                          </svg>
+                    </a>
+                    {{ $image->title }}
+                </div>
                 <div class="card-body p-0">
                     <div class="container">
                         <div class="row py-2">
@@ -19,7 +27,11 @@
                             <div class="col-sm-12 col-md-6 col-lg-6 py-2 d-flex flex-column justify-content-between">
                                 <div class="container mb-5 px-0">
                                     <div class="d-flex justify-content-between flex-wrap align-items-start mb-5">
-                                        <p>Uploaded by <b>{{ $user->name }}</b></p>
+                                        <p>Uploaded by 
+                                            <a href="{{ route('user.show', $user->name) }}">
+                                                <b>{{ $user->name }}</b>
+                                            </a>
+                                        </p>
                                         @unless ($user->id == Auth::id())
                                         <a href="{{ route($isFollowed ? 'user.unfollow' : 'user.follow', $user) }}" class="btn btn-sm {{ $isFollowed ? 'btn-outline-secondary' : 'btn-secondary' }}">{{ $isFollowed ? 'Unfollow' : 'Follow' }}</a>
                                         @endunless

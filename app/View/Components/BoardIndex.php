@@ -14,14 +14,22 @@ class BoardIndex extends Component
     public $boards;
 
     /**
+     * User.
+     *
+     * @var array
+     */
+    public $user;
+
+    /**
      * Create the component instance.
      *
      * @param  array  $boards
      * @return void
      */
-    public function __construct($boards)
+    public function __construct($boards, $user)
     {
         $this->boards = $boards;
+        $this->user = $user;
     }
 
     /**

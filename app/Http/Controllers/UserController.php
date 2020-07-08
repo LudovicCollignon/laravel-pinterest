@@ -15,12 +15,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return View
      */
-    public function show($user_name)
+    public function show(Request $request)
     {
-        $boards = User::find(Auth::id())->boards;
+        $user = User::where('name', $request->user_name)->first();
+
+        $boards = $user->boards;
+
+        $currentUser = User::find(Auth::id());
+
+        $isFollowed = false;
+
+        if ( $user->id !== Auth::id())            
+            $isFollowed = $currentUser->followees()->where('followee_id', $user->id)->get()->isNotEmpty();
 
         return view('user.show', [
-            'boards' => $boards
+            'user' => $user,
+            'boards' => $boards,
+            'isFollowed' => $isFollowed
         ]);
     }
 

@@ -60,16 +60,18 @@ class BoardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($user_name, $board_id, $board_name)
+    public function show(Request $request)
     {
-        $board = Board::find($board_id);
+        $user = User::where('name', $request->user_name)->first();
+        $board = Board::find($request->board_id);
         $images = $board->images;
         $boards = User::find(Auth::id())->boards;
 
         return view('board.show', [
             'board' => $board,
             'boards' => $boards,
-            'images' => $images
+            'images' => $images,
+            'user' => $user
         ]);
     }
 
